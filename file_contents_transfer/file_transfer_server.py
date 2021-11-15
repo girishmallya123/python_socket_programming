@@ -9,19 +9,22 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     client.
     """
 
+    client_number = 0
     def handle(self):
         filename = "output.txt"
+
         # self.request is the TCP socket connected to the client
+
         self.data = self.request.recv(1024).strip()
         print("{} wrote:".format(self.client_address[0]))
-        print(self.data)
-        # just send back the same data, but upper-cased
+        print(self.data.decode("utf-8"))
        
         file = open(filename, 'w')
-        file.writelines(str(self.data))
+        file.writelines(self.data.decode("utf-8"))
         file.close()
         
-        #self.request.sendall(bytes(msg, 'utf-8'))
+        msg = "Output stored in output.txt"
+        self.request.sendall(bytes(msg, 'utf-8'))
 
 if __name__ == "__main__":
     HOST, PORT = "localhost", 6666 

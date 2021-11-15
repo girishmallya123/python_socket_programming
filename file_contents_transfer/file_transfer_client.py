@@ -15,7 +15,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     for l in Lines:
         sock.sendall(bytes(l, "utf-8"))
 
-    # Receive data from the server and shut down
-    received = str(sock.recv(1024), "utf-8")
-
-print("Received: {}".format(received))
+print("Completed file transfer")
